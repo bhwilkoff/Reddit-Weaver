@@ -1,0 +1,5 @@
+{
+  "name": "Reddit Weaver",
+  "description": "A tool that takes 10 Reddit stories and uses AI to weave them into a single, cohesive, literary-style short story.",
+  "requestFramePermissions": []
+}
