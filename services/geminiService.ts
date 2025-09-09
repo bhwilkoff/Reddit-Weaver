@@ -71,8 +71,8 @@ export async function generateStory(postTitles: string[]): Promise<{ title: stri
 }
 
 export async function generateStoryImage(imagePrompt: string): Promise<string> {
-    // Add stylistic modifiers and the negative text instruction directly into the main prompt.
-    const finalPrompt = `${imagePrompt}, surreal digital art, cinematic lighting, book cover, thought-provoking, enigmatic, detailed composition, fantasy meets realism. NO TEXT, NO WORDS, NO LETTERS, no typography.`;
+    // Add stylistic modifiers and negative instructions to the main prompt.
+    const finalPrompt = `${imagePrompt}, surreal digital art, cinematic lighting, book cover, thought-provoking, enigmatic, detailed composition, fantasy meets realism. Do not include any text, words, letters, typography, signatures, or watermarks.`;
 
     try {
         const response = await ai.models.generateImages({
