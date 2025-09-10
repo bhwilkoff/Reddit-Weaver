@@ -1,4 +1,3 @@
-
 import { RedditPost } from '../types';
 
 // Simple shuffle function
@@ -12,13 +11,15 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 };
 
 export async function fetchRedditPosts(type: 'hot' | 'random'): Promise<RedditPost[]> {
-  // Fetch more for randomness, but Reddit API limit is typically 100 for this endpoint
   const limit = type === 'random' ? 100 : 10;
-  // Using r/all to get a wide variety of posts
-  const url = `https://www.reddit.com/r/all/hot.json?limit=${limit}`;
+  
+  // Use 'rising' for the random option to get more variety and "dig deeper" than the 'hot' page.
+  const listing = type === 'random' ? 'rising' : 'hot';
+  const url = `https://www.reddit.com/r/all/${listing}.json?limit=${limit}`;
 
   try {
-    const response = await fetch(url);
+    // Add { cache: 'no-store' } to prevent the browser from returning the same results on subsequent clicks.
+    const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) {
       throw new Error(`Reddit API responded with status: ${response.status}`);
     }
