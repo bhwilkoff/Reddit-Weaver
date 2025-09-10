@@ -27,7 +27,7 @@ export async function generateStory(postTitles: string[]): Promise<{ title: stri
       },
       imagePrompt: {
         type: Type.STRING,
-        description: "A short, descriptive, and visually-rich prompt (max 75 words) for an AI image generator to create a book cover. This prompt should be safe for work and avoid controversial topics, focusing on concrete visual elements from the story."
+        description: "A short, descriptive, and visually-rich prompt (max 75 words) for an AI image generator to create cover art. This prompt must be safe for work and focus on concrete visual elements. CRUCIALLY, it must avoid describing elements that typically contain text, such as books, signs, screens, or packaging. The goal is a purely visual, text-free image."
       }
     },
     required: ["title", "story", "imagePrompt"],
@@ -71,8 +71,8 @@ export async function generateStory(postTitles: string[]): Promise<{ title: stri
 }
 
 export async function generateStoryImage(imagePrompt: string): Promise<string> {
-    // Add stylistic modifiers and negative instructions to the main prompt.
-    const finalPrompt = `${imagePrompt}, surreal digital art, cinematic lighting, book cover, thought-provoking, enigmatic, detailed composition, fantasy meets realism. Do not include any text, words, letters, typography, signatures, or watermarks.`;
+    // Add stylistic modifiers and strong negative instructions to prevent text generation.
+    const finalPrompt = `${imagePrompt}. A clean, wordless, text-free image. Illustrative cover art, surreal digital painting, cinematic lighting, thought-provoking, enigmatic, detailed composition, fantasy meets realism. Absolutely no text, no letters, no typography, no signatures, no watermarks.`;
 
     try {
         const response = await ai.models.generateImages({
