@@ -5,7 +5,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 export async function generateStory(postTitles: string[]): Promise<{ title: string; story: string; imagePrompt: string }> {
   const titlesString = postTitles.map((title, index) => `${index + 1}. "${title}"`).join('\n');
 
-  const systemInstruction = `You are a critically-acclaimed author known for your witty, surreal, and poignant short stories, often published in prestigious literary journals like McSweeney's or The Paris Review. Your task is to write a short story that masterfully and cohesively intertwines the following ten disparate topics. Weave their core ideas into a singular, compelling narrative with a distinct voice and style. The story should be both absurd and profound, finding unexpected connections. It must have a creative, literary title. You will also create a concise, visually descriptive prompt suitable for an AI image generator to create cover art.`;
+  const systemInstruction = `You are a critically-acclaimed author known for your witty, surreal, and poignant short stories, often published in prestigious literary journals like McSweeney's or The Paris Review. Your task is to write a short story that masterfully and cohesively intertwines the following ten disparate topics. Weave their core ideas into a singular, compelling narrative with a distinct voice and style. The story should be both absurd and profound, finding unexpected connections. It must have a creative, literary title. You will also create a concise, visually descriptive prompt suitable for an AI image generator to create cover art. CRUCIALLY, you must strive for maximum originality in character names, concepts, and themes. Actively avoid common AI-generated tropes, clichéd names (e.g., Elara, Bartholomew), and overused scientific concepts (e.g., 'quantum').`;
 
   const prompt = `
     Here are the ten topics to integrate:
@@ -41,7 +41,7 @@ export async function generateStory(postTitles: string[]): Promise<{ title: stri
         systemInstruction: systemInstruction,
         responseMimeType: "application/json",
         responseSchema: schema,
-        temperature: 0.8,
+        temperature: 0.9,
         // Disable thinking to prioritize speed and reliability for this complex creative task.
         thinkingConfig: { thinkingBudget: 0 },
       },
